@@ -2,6 +2,7 @@ import { ArrowRight, PawPrint, QrCode, Sparkles } from "lucide-react";
 import cat from "/cat.jpeg";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import logo from '../../public/paw-adhar-logo.png'
 
 export default function HomePage() {
     const navigate = useNavigate();
