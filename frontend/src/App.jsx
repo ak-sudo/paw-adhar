@@ -7,6 +7,9 @@ import PawCursor from "./component/PawCursor";
 import CreatePawAdhar from "./pages/CreatePawAdhar";
 import PawAdharResult from "./pages/PawAdharResult";
 import PetProfile from "./pages/PetProfile";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfServices";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -22,6 +25,10 @@ function App() {
           <Route path="/result" element={<PawAdharResult />} />
 
           <Route path="/pet/:pawAdharId" element={<PetProfile />} />
+
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+
+          <Route path="/terms" element={<TermsOfService />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -1,6 +1,7 @@
 import { ArrowRight, PawPrint, QrCode, Sparkles } from "lucide-react";
 import cat from "/cat.jpeg";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
     const navigate = useNavigate();
@@ -271,15 +272,42 @@ export default function HomePage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="border-t border-black/10 px-5 py-8 sm:px-8">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 text-center text-xs text-black/40 sm:flex-row sm:justify-between sm:text-left">
-        <span>© 2026 Paw-Adhar</span>
+        <footer className="border-t border-black/10 bg-[#f5f3ed]">
+        <div className="mx-auto max-w-7xl px-5 py-8">
 
-        <span>
-        Unofficial parody project · Not affiliated with UIDAI
-        </span>
+            <div className="mb-6 text-center">
+            <p className="mx-auto max-w-2xl text-xs leading-5 text-black/40">
+                By creating a Paw-Adhar, you understand that the information you
+                provide may be displayed on a public pet profile.
+            </p>
+            </div>
+
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+
+            <p className="text-xs text-black/40">
+                © 2026 Paw-Adhar. Made for fun 🐾
+            </p>
+
+            <div className="flex gap-5 text-xs font-semibold">
+                <Link
+                to="/privacy"
+                className="text-black/50 transition hover:text-black"
+                >
+                Privacy Policy
+                </Link>
+
+                <Link
+                to="/terms"
+                className="text-black/50 transition hover:text-black"
+                >
+                Terms of Service
+                </Link>
+            </div>
+
+            </div>
+
         </div>
-      </footer>
+        </footer>
     </main>
   );
 }
