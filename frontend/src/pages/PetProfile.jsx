@@ -7,15 +7,26 @@ export default function PetProfile() {
   const [pet, setPet] = useState(null);
 
   useEffect(() => {
-    const savedPet = localStorage.getItem("pawAdharPet");
+    const fetchPet = async () => {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/pets/${pawAdharId}`,
+        );
 
-    if (!savedPet) return;
+        const data = await response.json();
 
-    const parsedPet = JSON.parse(savedPet);
+        if (!response.ok) {
+          throw new Error(data.message || "Pet not found");
+        }
 
-    if (parsedPet.pawAdharId === pawAdharId) {
-      setPet(parsedPet);
-    }
+        setPet(data.pet);
+      } catch (error) {
+        console.error("Failed to fetch pet:", error);
+        setPet(null);
+      }
+    };
+
+    fetchPet();
   }, [pawAdharId]);
 
   if (!pet) {
@@ -26,9 +37,7 @@ export default function PetProfile() {
             <PawPrint size={24} />
           </div>
 
-          <h1 className="mt-5 text-2xl font-black">
-            Pet not found
-          </h1>
+          <h1 className="mt-5 text-2xl font-black">Pet not found</h1>
 
           <p className="mt-2 text-sm text-black/45">
             This Paw-Adhar profile doesn't exist on this device.
@@ -48,19 +57,15 @@ export default function PetProfile() {
 
   return (
     <main className="min-h-screen bg-[#f5f3ed] text-[#171717]">
-
       {/* NAVBAR */}
       <nav className="border-b border-black/10">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
-
           <Link to="/" className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#171717] text-white">
               <PawPrint size={18} />
             </div>
 
-            <span className="text-lg font-black">
-              Paw-Adhar
-            </span>
+            <span className="text-lg font-black">Paw-Adhar</span>
           </Link>
 
           <Link
@@ -69,18 +74,14 @@ export default function PetProfile() {
           >
             Create yours
           </Link>
-
         </div>
       </nav>
 
       {/* PROFILE */}
       <section className="px-5 py-10 sm:px-8 sm:py-16">
-
         <div className="mx-auto max-w-4xl">
-
           {/* VERIFIED-STYLE HEADER */}
           <div className="text-center">
-
             <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#d85b2c] text-white">
               <PawPrint size={25} />
             </div>
@@ -99,12 +100,10 @@ export default function PetProfile() {
                 {pet.pawAdharId}
               </span>
             </p>
-
           </div>
 
           {/* PROFILE CARD */}
           <div className="mt-10 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-[0_25px_70px_rgba(0,0,0,0.1)]">
-
             {/* TOP */}
             <div className="flex h-2">
               <div className="w-1/3 bg-[#e87532]" />
@@ -113,12 +112,9 @@ export default function PetProfile() {
             </div>
 
             <div className="grid gap-8 p-5 sm:p-8 md:grid-cols-[220px_1fr]">
-
               {/* PHOTO */}
               <div>
-
                 <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-[#ddd8cc]">
-
                   {pet.photo ? (
                     <img
                       src={pet.photo}
@@ -130,11 +126,9 @@ export default function PetProfile() {
                       🐾
                     </div>
                   )}
-
                 </div>
 
                 <div className="mt-3 rounded-xl bg-[#f5f3ed] px-4 py-3 text-center">
-
                   <p className="text-[9px] font-bold uppercase tracking-widest text-black/35">
                     Paw-Adhar Number
                   </p>
@@ -142,16 +136,12 @@ export default function PetProfile() {
                   <p className="mt-1 break-all font-mono text-xs font-black">
                     {pet.pawAdharId}
                   </p>
-
                 </div>
-
               </div>
 
               {/* DETAILS */}
               <div>
-
                 <div className="border-b border-black/10 pb-5">
-
                   <p className="text-xs font-bold uppercase tracking-widest text-black/35">
                     Pet Identity
                   </p>
@@ -163,11 +153,9 @@ export default function PetProfile() {
                   <p className="mt-1 text-black/45">
                     {pet.breed || "Breed not specified"}
                   </p>
-
                 </div>
 
                 <div className="mt-6 grid gap-5 sm:grid-cols-2">
-
                   <ProfileDetail
                     label="Date of Birth"
                     value={pet.dob || "Not specified"}
@@ -187,11 +175,9 @@ export default function PetProfile() {
                     label="Special Identification"
                     value={pet.specialId || "Nothing suspicious"}
                   />
-
                 </div>
 
                 <div className="mt-6 rounded-2xl bg-[#f5f3ed] p-5">
-
                   <p className="text-[9px] font-bold uppercase tracking-widest text-black/35">
                     Address
                   </p>
@@ -199,12 +185,10 @@ export default function PetProfile() {
                   <p className="mt-2 text-sm font-semibold leading-6">
                     {pet.address || "Not specified"}
                   </p>
-
                 </div>
 
                 {/* QR PLACEHOLDER */}
                 <div className="mt-6 flex items-center gap-4 rounded-2xl border border-black/10 p-4">
-
                   <div className="flex h-16 w-16 shrink-0 items-center justify-center border border-black/10 bg-white">
                     <QrCode size={48} strokeWidth={1.5} />
                   </div>
@@ -218,24 +202,19 @@ export default function PetProfile() {
                       Scan the Paw-Adhar QR code to view this profile.
                     </p>
                   </div>
-
                 </div>
-
               </div>
-
             </div>
-
           </div>
 
           {/* DISCLAIMER */}
           <p className="mx-auto mt-6 max-w-xl text-center text-[10px] leading-5 text-black/35">
-            This is a fictional entertainment profile created by Paw-Adhar.
-            It is not an official identification document and is not affiliated
+            This is a fictional entertainment profile created by Paw-Adhar. It
+            is not an official identification document and is not affiliated
             with UIDAI or the Government of India.
           </p>
 
           <div className="mt-8 text-center">
-
             <Link
               to="/create"
               className="inline-flex items-center gap-2 rounded-2xl bg-[#171717] px-6 py-4 text-sm font-bold text-white transition hover:-translate-y-0.5"
@@ -243,17 +222,12 @@ export default function PetProfile() {
               <PawPrint size={17} />
               Make a Paw-Adhar for your pet
             </Link>
-
           </div>
-
         </div>
-
       </section>
-
     </main>
   );
 }
-
 
 function ProfileDetail({ label, value }) {
   return (
@@ -262,9 +236,7 @@ function ProfileDetail({ label, value }) {
         {label}
       </p>
 
-      <p className="mt-1 text-sm font-semibold">
-        {value}
-      </p>
+      <p className="mt-1 text-sm font-semibold">{value}</p>
     </div>
   );
 }

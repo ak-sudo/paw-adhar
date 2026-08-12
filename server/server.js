@@ -19,19 +19,19 @@ app.get("/api/health", (req, res) => {
 });
 
 mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => {
+.connect(process.env.MONGODB_URI)
+.then(() => {
     console.log("MongoDB connected");
-
+    
     const PORT = process.env.PORT || 3000;
-
+    
     app.listen(PORT, () => {
-      console.log(`Paw-Adhar API running on port ${PORT}`);
+        console.log(`Paw-Adhar API running on port ${PORT}`);
     });
-  })
-  .catch((error) => {
+})
+.catch((error) => {
     console.error("MongoDB connection failed:", error.message);
     process.exit(1);
-  });
+});
 
 app.use("/api/pets", petRoutes);
