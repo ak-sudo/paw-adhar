@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+
+@media (min-width: 768px) {
+  html,
+  body,
+  #root,
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    cursor: none;
+  }
+}
+
+@keyframes paw-trail {
+  0% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -65%) scale(0.55);
+  }
+}
+
+.animate-paw-trail {
+  font-size: 14px;
+  opacity: 0;
+  animation: paw-trail 700ms ease-out forwards;
+}
